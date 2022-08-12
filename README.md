@@ -8,7 +8,7 @@ This project was aiming to replicate the electronic game Simon, which tests memo
 
 The front-end has most of the aspects needed. The backend still needs some work.
 
-In the feature I aim to add sounds and other modes of play.
+In the future I aim to add sounds, better styling and other modes of play.
 
 
 
