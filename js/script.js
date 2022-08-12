@@ -1,40 +1,33 @@
 
 
 var colors = {
-  blueOn: '#7baefe',
-  blueOff: '#2659a9',
-  redOn: '#fb7b7b',
-  redOff: '#d62626',
-  yellowOn: '#fff57b',
-  yellowOff: '#eec026',
   greenOn: '#7bfb99',
   greenOff: '#26b644'
 };
 
 var game = {
-  status: 'off',
   score: "--",
   Sequence: [],
   Sequence_player: [],
   timestep: 1000,
-  allowPress: true,
+  Pressable: true,
   active: false
 };
 
-document.querySelector('#btn-start').addEventListener('click', () => {  if (game.allowPress === true && game.active === false) {
+document.querySelector('#btn-start').addEventListener('click', () => {  if (game.Pressable === true && game.active === false) {
     game.active = true;
     addNumber();
     play();
   }});
 
 document.querySelector('#btn-reset').addEventListener('click', function() {
-  if (game.allowPress === true) {
+  if (game.Pressable === true) {
     resetGame();
   }
 });
 
 document.querySelector('.game-btn.top-left').addEventListener('mousedown',function() {
-  if (game.allowPress === true) {
+  if (game.Pressable === true) {
     var id = this.id;
     console.log(id);
     var button = parseInt(id.substr(id.length - 1));
@@ -47,7 +40,7 @@ document.querySelector('.game-btn.top-left').addEventListener('mousedown',functi
 });
 
 document.querySelector('.game-btn.top-right').addEventListener('mousedown',function() {
-  if (game.allowPress === true) {
+  if (game.Pressable === true) {
     var id = this.id;
     console.log(id);
     var button = parseInt(id.substr(id.length - 1));
@@ -60,9 +53,8 @@ document.querySelector('.game-btn.top-right').addEventListener('mousedown',funct
 });
 
 document.querySelector('.game-btn.bottom-right').addEventListener('mousedown',function() {
-  if (game.allowPress === true) {
+  if (game.Pressable === true) {
     var id = this.id;
-    console.log(id);
     var button = parseInt(id.substr(id.length - 1));
     button_flash(button);
     if (game.active === true) {
@@ -73,7 +65,7 @@ document.querySelector('.game-btn.bottom-right').addEventListener('mousedown',fu
 });
 
 document.querySelector('.game-btn.bottom-left').addEventListener('mousedown',function() {
-  if (game.allowPress === true) {
+  if (game.Pressable === true) {
     var id = this.id;
     console.log(id);
     var button = parseInt(id.substr(id.length - 1));
@@ -85,18 +77,16 @@ document.querySelector('.game-btn.bottom-left').addEventListener('mousedown',fun
   }
 });
 
-/////* Game functions */////
-// Reset game to initial state
+
 function resetGame() {
-var game = {
-  status: 'off',
-  score: "--",
-  Sequence: [],
-  Sequence_player: [],
-  timestep: 1000,
-  allowPress: true,
-  active: false
-};
+  game.score = "--";
+  game.Sequence = [];
+  game.Sequence_player = [];
+  
+  game.timestep = 1000;
+  game.Pressable = true;
+  game.active = false;
+
   counter = 0;
   $('#score-screen').attr("placeholder", game.score);
   
@@ -111,19 +101,19 @@ function addNumber() {
 }
 
 function play() {
-  if (game.score >= 12) {
+  if (game.score >= 4) {
     winScreen();
   } else {
     $('#btn-start').css('background-color', colors.greenOn);
-    game.allowPress = false;
+    game.Pressable = false;
   
-    game.Sequence.forEach(function(button, counter) {
+    game.Sequence.forEach(function(button, ind) {
      setTimeout(function() {
         button_flash(button);
-      }, game.timestep*(counter+1));
+      }, game.timestep*(ind + 1));
     });
     setTimeout(function() {
-      game.allowPress = true;
+      game.Pressable = true;
       $('#btn-start').css('background-color', colors.greenOff);
     }, game.timestep*(game.Sequence.length+1))
   }
@@ -131,30 +121,32 @@ function play() {
 
 function check() {
   var index = game.Sequence_player.length - 1;
+ 
   if (game.Sequence_player[index] != game.Sequence[index]) {
     game.Sequence_player = [];
     wrongButton();
-    return false;
+    resetGame();
   }
 
-  if (game.Sequence_player[index] === game.Sequence[index] && game.Sequence_player.length === game.Sequence.length) {
+  if (game.Sequence_player[index] === game.Sequence[index] ) {
+    if(game.Sequence_player.length === game.score){
     game.Sequence_player = [];
-    game.allowPress = false;
+    game.Pressable = false;
     setTimeout(function() {
       addNumber();
       play();
     }, 1000);
   }
+}
   else {
     game.Sequence_player = [];
     wrongButton();
-    resetGame();
   }
 }
 
 function wrongButton() {
-  game.allowPress = false;
-  $('#score-screen').attr("placeholder", "!!");
+  game.Pressable = false;
+  $('#score-screen').attr("placeholder", "XX");
   setTimeout(function() {
       resetGame();
     }, 2000);
@@ -178,8 +170,8 @@ function button_flash(btnNum) {
 }
 
 function winScreen() {
-  $('#score-screen').attr("placeholder", "GG");
-  var cycle = setInterval(function() {
+  $('#score-screen').attr("placeholder", "**");
+    var cycle = setInterval(function() {
     $('#btn0').fadeOut(200).fadeIn(200);
       $('#btn1').fadeOut(200).fadeIn(200);
       $('#btn2').fadeOut(200).fadeIn(200);
@@ -188,9 +180,9 @@ function winScreen() {
   setTimeout(function() {
     clearInterval(cycle);
     resetGame();
-  }, 3800);
+  }, game.timestep*game.score);
 }
-// Fire when page loads
+
 $(document).ready(function() {
   resetGame();
 });
