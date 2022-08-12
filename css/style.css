@@ -16,16 +16,20 @@ p {
   text-align: center;
 }
 
+
 .row {
-  margin-top: -10px;
+  margin-top: -12px;
 }
 
 .game-title {
   padding-top: 14px;
-  font-family: 'Bree Serif', serif;
+  font-family: cursive;
   font-size: 36px;
   font-weight: 600;
 }
+
+
+
 
 .play-area {
   position: relative;
@@ -50,7 +54,7 @@ p {
 
 .center-panel {
   position: relative;
-  background: white;
+  background: turquoise;
   height: 160px;
   width: 160px;
   top: 20px;
@@ -66,25 +70,25 @@ p {
 .game-btn.top-left {
   top: 20px;
   left: 20px;
-  background-color: #2659a9;
+  background-color: #2659a1;
   border-radius: 100% 0 0 0;
 }
 .game-btn.top-right {
   top: 20px;
   right: 20px;
-  background-color: #d62626;
+  background-color: #d62622;
   border-radius: 0 100% 0 0;
 }
 .game-btn.bottom-right {
   bottom: 20px;
   right: 20px;
-  background-color: #eec026;
+  background-color: #eec022;
   border-radius: 0 0 100% 0;
 }
 .game-btn.bottom-left {
   bottom: 20px;
   left: 20px;
-  background-color: #26b644;
+  background-color: #26b642;
   border-radius: 0 0 0 100%;
 }
 .game-btn:hover {
@@ -102,7 +106,7 @@ p {
 #score-screen {
   position: relative;
   margin-left: 7%;
-  margin-top: 3%;
+  margin-top: 4%;
   font-family: 'VT323', mono;
   font-size: 36px;
   line-height: 44px;
@@ -118,7 +122,7 @@ p {
 }
 
 .btn-small {
-  margin: 14px;
+  margin: 12px;
   width: 18px;
   height: 18px;
   
@@ -127,8 +131,6 @@ p {
   background: black;
 
 }
-
-
 
 #btn-reset {
   background-color: #eec026;
