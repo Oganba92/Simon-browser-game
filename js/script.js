@@ -1,5 +1,6 @@
 
 
+
 var colors = {
   blueOn: '#7baefe',
   blueOff: '#2659a9',
@@ -109,7 +110,7 @@ function checkSequence() {
   else {
     game.Sequence_player = [];
     wrongButton();
-    return false;
+    resetGame();
   }
 }
 
@@ -124,25 +125,20 @@ function wrongButton() {
 
 function button_flash(btnNum) {
   if(btnNum == 0){
-      $('#btn0').stop().animate({backgroundColor: colors.blueOn}, 10);
-      $('#btn0').animate({backgroundColor: colors.blueOff}, 400);
+    console.log('test');
+      $('#btn0').fadeOut(200).fadeIn(200);
       }
     if(btnNum == 1){
-      $('#btn1').stop().animate({backgroundColor: colors.redOn}, 10);
-      $('#btn1').animate({backgroundColor: colors.redOff}, 400);
+      $('#btn1').fadeOut(200).fadeIn(200);
     }
     if(btnNum == 2){
-      $('#btn2').stop().animate({backgroundColor: colors.yellowOn}, 10);
-      $('#btn2').animate({backgroundColor: colors.yellowOff}, 400);
+
+      $('#btn2').fadeOut(200).fadeIn(200);
     }
     if(btnNum == 3){
-      $('#btn3').stop().animate({backgroundColor: colors.greenOn}, 10);
-      $('#btn3').animate({backgroundColor: colors.greenOff}, 400);
+      $('#btn3').fadeOut(200).fadeIn(200);
     }
 }
-  
-
-
 
 function winScreen() {
   $('#score-screen').attr("placeholder", "GG");
