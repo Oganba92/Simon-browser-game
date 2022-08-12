@@ -12,3 +12,7 @@ In the future I aim to add sounds, better styling and other modes of play.
 
 
 
+<img width="758" alt="Screen Shot 2022-08-12 at 12 51 37 PM" src="https://user-images.githubusercontent.com/67343006/184432907-dc51e101-67e9-40a7-a839-9c9fdc875d4e.png">
+
+
+The visual representation of the game
