@@ -1,3 +1,5 @@
+
+
 var colors = {
   blueOn: '#7baefe',
   blueOff: '#2659a9',
@@ -19,6 +21,30 @@ var game = {
   active: false
 };
 
+document.querySelector('#btn-start').addEventListener('click', () => {  if (game.allowPress === true && game.active === false) {
+    game.active = true;
+    addNumber();
+    play();
+  }});
+
+document.querySelector('#btn-reset').addEventListener('click', function() {
+  if (game.allowPress === true) {
+    resetGame();
+  }
+});
+
+document.querySelector('.game-btn').addEventListener('mousedown',function() {
+  if (game.allowPress === true) {
+    var id = this.id;
+    var button = parseInt(id.substr(id.length - 1));
+    button_flash(button);
+    if (game.active === true) {
+      game.Sequence_player.push(button);
+      checkSequence();
+    }
+  }
+});
+
 
 /////* Game functions */////
 // Reset game to initial state
@@ -38,7 +64,7 @@ function resetGame() {
 }
 
 function addNumber() {
-  game.Sequence.push(Math.floor(Math.random() * 4));
+  game.Sequence.push(Math.floor(Math.random() * 3));
   if(game.score === "--"){
     game.score = 1}
    else{game.score += 1;};
@@ -51,8 +77,11 @@ function play() {
   } else {
     $('#btn-start').css('background-color', colors.greenOn);
     game.allowPress = false;
-    game.Sequence.forEach(function( counter) {
-      setTimeout(game.timestep*(counter+1));
+  
+    game.Sequence.forEach(function(button, counter) {
+     setTimeout(function() {
+        button_flash(button);
+      }, game.timestep*(counter+1));
     });
     setTimeout(function() {
       game.allowPress = true;
@@ -132,14 +161,7 @@ function winScreen() {
     resetGame();
   }, 3800);
 }
-
-
-/////* Event listeners */////
-
-$('#btn-start').click(function() {
-  if (game.allowPress === true && game.active === false) {
-    game.active = true;
-    addNumber();
-    play();
-  };
+// Fire when page loads
+$(document).ready(function() {
+  resetGame();
 });
